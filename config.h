@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
-static int borderpx = 2;
+static char *font = "FuraCode Nerd Font:size=9";
+static int borderpx = 0;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -73,8 +73,8 @@ static unsigned int cursorthickness = 2;
  *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
  * 0: disable (render all U25XX glyphs normally from the font).
  */
-const int boxdraw = 0;
-const int boxdraw_bold = 0;
+const int boxdraw = 1;
+const int boxdraw_bold = 1;
 
 /* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
 const int boxdraw_braille = 0;
@@ -103,35 +103,39 @@ char *termname = "st-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 8;
+unsigned int tabspaces = 2;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	"#1d1f21", /* black   */
+	"#ff5c57", /* red     */
+	"#35b566", /* green   */
+	"#ffd866", /* yellow  */
+	/* "#ff00ca", /1* blue    *1/ */
+	"#3daee9", /* blue    */
+	/* "#fc9867", /1* magenta *1/ */
+	"#ab9df2", /* magenta */
+	/* "#3daee9", /1* cyan    *1/ */
+	"#9aedfe", /* cyan    */
+	"#a2a2a2", /* white   */
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+ 	"#31363b", /* black   */
+// "#222426", /* black   */
+	"#ff5c57", /* red     */
+	"#35b566", /* green   */
+	"#ffd866", /* yellow  */
+	"#3daee9", /* blue    */
+	/* "#fc9867", /1* magenta *1/ */
+	"#ab9df2", /* magenta */
+	"#9aedfe", /* cyan    */
+	"#e5e5e5", /* white   */
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
+	"#0f0f0f", /* background */
+	"#e5e5e5", /* foreground */
 };
 
 
@@ -139,9 +143,9 @@ static const char *colorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 7;
-unsigned int defaultbg = 0;
-static unsigned int defaultcs = 256;
+unsigned int defaultfg = 257;
+unsigned int defaultbg = 256;
+static unsigned int defaultcs = 257;
 static unsigned int defaultrcs = 257;
 
 /*
@@ -206,16 +210,16 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
-	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
+	{ TERMMOD,              XK_plus,        zoom,           {.f = +1} },
+	{ TERMMOD,              XK_underscore,  zoom,           {.f = -1} },
+	{ TERMMOD,              XK_parenright,  zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ XK_ANY_MOD,           XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ XK_ANY_MOD,           XK_Page_Down,   kscrolldown,    {.i = -1} },
 	{ TERMMOD,              XK_Return,      newterm,        {.i =  0} },
 };
 

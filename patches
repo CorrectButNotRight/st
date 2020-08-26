@@ -1,0 +1,10 @@
+Patches added:
+- scrollback
+- scrollback-mouse
+- scrollback-mouse-altscreen
+- scrollback-mouse-increment
+- boxdraw
+- ligatures
+- vertcenter
+- newterm
+- clipboard
